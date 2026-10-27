@@ -1,0 +1,27 @@
+node_modules/
+dist/
+.env
+backend/data/db.json
+*.log
+.DS_Store
+.data-src/
+
+# Private local env overrides and browser-test artifacts
+.env.*
+!.env.example
+test-results/
+playwright-report/
+.cache/
+
+# Android (Capacitor) build outputs — the APK comes from GitHub Actions
+frontend/android/app/build/
+frontend/android/.gradle/
+frontend/android/build/
+frontend/android/local.properties
+frontend/android/app/src/main/assets/public/
+frontend/android/app/src/main/assets/capacitor.config.json
+frontend/android/app/src/main/assets/capacitor.plugins.json
+# Android signing secrets
+*.jks
+*.keystore
+frontend/android/keystore.properties

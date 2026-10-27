@@ -1,0 +1,33 @@
+# One-click Render.com blueprint — FREE plan, no card.
+# Push this repo to GitHub → Render → "New +" → "Blueprint" → pick the repo.
+#
+# Free-tier facts (2026): sleeps after 15 min idle, ~750 instance-hours/month,
+# no persistent disk → the JSON store resets on every deploy/restart. That's
+# acceptable for this MVP (SEED_ON_BOOT re-creates demo data every boot).
+# Keep it awake during demos with cron-job.org / UptimeRobot pinging
+#   https://<your-app>.onrender.com/api/health   every 10 minutes.
+services:
+  - type: web
+    name: annadata-connect
+    runtime: docker
+    plan: free
+    region: singapore          # closest free region to Odisha
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: SEED_ON_BOOT
+        value: "true"
+      - key: ALLOW_DEMO_LOGIN
+        value: "true"
+      - key: TRUST_PROXY
+        value: "1"
+      # The Android APK and any separately hosted frontend (Netlify / Cloudflare
+      # Pages) call this API cross-origin. Empty = allow all (fine for the MVP);
+      # tighten to a comma-separated list once you know your frontend URL, e.g.
+      #   https://annadata-connect.pages.dev,https://localhost,capacitor://localhost
+      - key: CORS_ORIGIN
+        value: ""
